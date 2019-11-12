@@ -1,69 +1,36 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 
-// function App() {
-//   return (
-//     <React.Fragment>
-//       <label htmlFor="bar">bar</label>
-// 	    <input type="text" onChange={() =>{console.log("I am clicked")}}/>
-//    </React.Fragment>
-//   );
-// }
+/*props*/
+//親から子に渡される。変更不可能(イミュータブル)
 
-const App = () => {
-  const profiles = [
-    {name:"Taro" ,age:10},
-    {name:"Hanako",age:5},
-    {name:"NaName",age:1}
-  ]
+/*state*/
+//コンポーネント内で使用する。変更可能(ミュータブル)
 
-  const products = [
-    "Apple","Grape","banana"
-  ]
+const App = () => (<Conuter></Conuter>)
 
-  return (
-    <div>
-      {
-        profiles.map((profiles,index) => {
-          return <User name={profiles.name} age={profiles.age} key={index}/>
-        })
-      }
-      <hr/>
-      <User name={"Taro"}  age={10}/>
+class Conuter extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { count: 0 };
+  }
 
-      {
-        products.map((product,index)=>{
-          return <Frutis name={product} key={index}/>
-        })
-      }
-     
-    </div>
-  )
-}
+  handlePlusButton = () => {
+    this.setState({ count: this.state.count + 1 })
+  }
 
-const User = (props) => {
-  return (
-    <div>
-      Hi, I am {props.name}, and {props.age} years old
-    </div>
-  )
-}
+  handleMinusButton = () => {
+    this.setState({ count: this.state.count - 1 })
+  }
 
-const Frutis = (props) =>{
-  return(
-    <div>
-      {props.name} 
-    </div>
-  )
-}
-
-// User.defaultProps ={
-//   age:1
-// }
-
-User.propTypes = {
-  name: PropTypes.string,
-  age:PropTypes.number.isRequired
+  render() {
+    return (
+      <React.Fragment>
+        <div>Counter: {this.state.count}</div>
+        <button onClick={this.handlePlusButton}>＋1</button>
+        <button onClick={this.handleMinusButton}>－1</button>
+      </React.Fragment>
+    )
+  }
 }
 
 export default App;
